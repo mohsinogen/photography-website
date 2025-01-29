@@ -9,7 +9,7 @@ import VectorTopLeftAnimation from "@/components/vector-top-left-animation";
 
 interface Props {
   title: string;
-  coverPhoto: Photo;
+  coverPhoto: any;
 }
 
 const CityCard = ({ title, coverPhoto }: Props) => {

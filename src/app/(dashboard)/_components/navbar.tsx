@@ -19,7 +19,7 @@ const Navbar = () => {
     >
       <div className="px-4 flex items-center h-[60px] ">
         <div className="flex items-center gap-x-8">
-          <h1 className="font-bold text-xl">ECarry</h1>
+          <h1 className="font-bold text-xl">Mohsin Ansari</h1>
           <Navigation />
         </div>
         <div className="ml-auto flex items-center space-x-2 md:space-x-3">

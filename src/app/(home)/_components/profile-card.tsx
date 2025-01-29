@@ -26,14 +26,14 @@ const ProfileCard = () => {
 
             {/* NAME  */}
             <div className="flex flex-col gap-[2px]">
-              <h1 className="text-lg">ECarry</h1>
+              <h1 className="text-lg">Mohsin Ansari</h1>
               <p className="text-sm text-text-muted">Photographer</p>
             </div>
           </div>
 
           <div className="lg:mt-4 xl:mt-0">
             <p className="text-text-muted text-[15px]">
-              I&apos;m ECarry, a photographer dedicated to capturing authentic
+              I&apos;m Mohsin Ansari, a photographer dedicated to capturing authentic
               moments and telling stories through creative and emotional
               imagery, wherever my journey takes me.
             </p>
