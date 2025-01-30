@@ -9,14 +9,21 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import BlurImage from "@/components/blur-image";
 import FlipCard from "@/components/flip-card";
 import { useRouter } from "next/navigation";
+import { photoCategories } from "@/lib/helper";
 
-const CityPhotos = ({ cityName }: { cityName: string }) => {
+const CityPhotos = ({ categoryName }: { categoryName: string }) => {
   const router = useRouter();
-  const { data, isLoading: isCitySetsLoading } = useGetCitySets();
-  const decodedCityName = decodeURIComponent(cityName);
+  const { data, isLoading: isCitySetsLoading } = {
+    isLoading: false,
+    data: photoCategories
+  };
+  const decodedCityName = decodeURIComponent(categoryName);
+
+  console.log('data', decodedCityName);
+  
 
   const cityData = data?.find(
-    (item) => item.city.toLowerCase() === decodedCityName.toLowerCase()
+    (item) => item.category.toLowerCase() === decodedCityName.toLowerCase()
   );
 
   if (isCitySetsLoading) {
@@ -41,7 +48,7 @@ const CityPhotos = ({ cityName }: { cityName: string }) => {
         <div className="w-full h-full relative">
           <BlurImage
             src={cityData.coverPhoto.url}
-            alt={cityData.city}
+            alt={cityData.category}
             fill
             quality={75}
             blurhash={cityData.coverPhoto.blurData}
@@ -81,12 +88,12 @@ const CityPhotos = ({ cityName }: { cityName: string }) => {
           <div className="col-span-1 md:col-span-1 lg:col-span-1 2xl:col-span-1 flex flex-col gap-3">
             <div className="w-full h-full p-3 lg:p-5 bg-muted rounded-xl flex justify-between items-center">
               <p className="text-xs text-text-muted">Country</p>
-              <p className="text-xs">{cityData.country}</p>
+              <p className="text-xs">{cityData.category}</p>
             </div>
 
             <div className="w-full h-full p-3 lg:p-5 bg-muted rounded-xl flex justify-between items-center">
               <p className="text-xs text-text-muted">City</p>
-              <p className="text-xs">{cityData.city}</p>
+              <p className="text-xs">{cityData.category}</p>
             </div>
 
             <div className="w-full h-full p-3 lg:p-5 bg-muted rounded-xl flex justify-between items-center">

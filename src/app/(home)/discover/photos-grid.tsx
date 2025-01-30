@@ -10,16 +10,17 @@ import VectorTopLeftAnimation from "@/components/vector-top-left-animation";
 
 // Hooks
 import { useGetPhotos } from "@/features/photos/api/use-get-photos";
+import { photoMetadata1, photoMetadata2 } from "@/lib/helper";
 
 const PhotosGrid = () => {
-  const { data } = useGetPhotos();
+  const data  = [photoMetadata1, photoMetadata2];
 
   const photos = data || [];
 
   return (
     <div className="size-full">
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-3 pb-3">
-        {photos.map((photo) => (
+        {photos.map((photo:any) => (
           <motion.div
             key={photo.id}
             className="relative group cursor-pointer"

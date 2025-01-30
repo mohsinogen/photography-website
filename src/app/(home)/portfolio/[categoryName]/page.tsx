@@ -1,20 +1,20 @@
 import CityPhotos from "./city-photos";
 
-type Params = Promise<{ cityName: string }>;
+type Params = Promise<{ categoryName: string }>;
 
 export const generateMetadata = async ({ params }: { params: Params }) => {
-  const { cityName } = await params;
+  const { categoryName } = await params;
   return {
-    title: `${decodeURIComponent(cityName)} - Travel`,
+    title: `${decodeURIComponent(categoryName)} - Travel`,
   };
 };
 
 const CityPage = async ({ params }: { params: Params }) => {
-  const { cityName } = await params;
+  const { categoryName } = await params;
 
   return (
     <div className="size-full">
-      <CityPhotos cityName={cityName} />
+      <CityPhotos categoryName={categoryName} />
     </div>
   );
 };

@@ -18,7 +18,7 @@ const CityCard = ({ title, coverPhoto }: Props) => {
   return (
     <motion.div
       className="w-full relative group cursor-pointer"
-      onClick={() => router.push(`/travel/${title}`)}
+      onClick={() => router.push(`/portfolio/${title}`)}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}

@@ -53,12 +53,13 @@ const ProfileCard = () => {
 
         <ContactCard title="GitHub" href="https://github.com/ecarry" />
 
-        <ContactCard
+        {/* <ContactCard
           title="Xiaohongshu"
           href="https://www.xiaohongshu.com/user/profile/66c84ba2000000001b01b3f1"
-        />
+        /> */}
 
         <ContactCard
+          href="mailto:mohsinansari.contact@gmail.com"
           title="Contact me"
           className="bg-primary hover:bg-primary-hover text-white dark:text-black"
         />

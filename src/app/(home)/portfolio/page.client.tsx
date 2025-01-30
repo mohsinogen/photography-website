@@ -20,25 +20,34 @@ import {
 // Hooks & Types
 import { useGetCitySets } from "@/features/city/api/use-get-city-sets";
 import { type CitySetWithRelations } from "@/app/api/[[...route]]/city";
+import { photoCategories, PhotoCollection } from "@/lib/helper";
 
 // Components
-const CoverPhoto = ({ city }: { city: CitySetWithRelations | null }) => {
+const CoverPhoto = ({ category }: { category: PhotoCollection | null }) => {
+
+
+
+
+  if(!category){
+    return;
+  }
+
   return (
     <div className="w-full h-[70vh] lg:w-1/2 lg:fixed lg:top-0 lg:left-0 lg:h-screen p-0 lg:p-3">
       <div className="w-full h-full relative rounded-xl overflow-hidden">
-        {city && (
+        
           <BlurImage
-            src={city.coverPhoto.url}
-            alt={city.city}
+            src={category?.coverPhoto.url}
+            alt={category?.category}
             fill
             priority
-            blurhash={city.coverPhoto.blurData}
+            blurhash={category?.coverPhoto.blurData}
             className="object-cover"
           />
-        )}
+     
 
         <div className="absolute right-0 bottom-0">
-          <VectorCombined title={city?.city || ""} position="bottom-right" />
+          <VectorCombined title={category?.category || ""} position="bottom-right" />
         </div>
       </div>
     </div>
@@ -48,39 +57,41 @@ const CoverPhoto = ({ city }: { city: CitySetWithRelations | null }) => {
 const Introduction = () => (
   <CardContainer>
     <div className="flex flex-col p-12 gap-[128px]">
-      <h1 className="text-4xl">Travel</h1>
+      <h1 className="text-4xl">Portfolio</h1>
       <div className="flex flex-col gap-4 font-light">
         <p>
-          Exploring the world one step at a time, capturing life through street
-          photography and city walks. From bustling urban corners to hidden
-          alleyways, every journey tells a unique story through the lens.
+        I am a beginner photographer exploring the art of capturing moments through my lens.
+        I love photographing nature, landscapes, portraits, and street scenes,
+        finding beauty in everyday life. Each shot is a learning experience,
+        helping me refine my skills and develop my unique style. Photography is my creative escape,
+        and I’m excited to grow and share my journey through my images.
         </p>
       </div>
     </div>
   </CardContainer>
 );
 
-interface CityItemProps {
-  city: CitySetWithRelations;
-  onMouseEnter: (city: CitySetWithRelations) => void;
+interface CategoryItemProps {
+  category: PhotoCollection;
+  onMouseEnter: (val: any) => void;
 }
 
-const CityItem = ({ city, onMouseEnter }: CityItemProps) => {
+const CategoryItem = ({ category, onMouseEnter }: CategoryItemProps) => {
   const router = useRouter();
 
   return (
     <div
-      key={city.id}
+      key={category.id}
       className="w-full py-5 px-3 bg-muted hover:bg-muted-hover rounded-xl grid grid-cols-2 items-center cursor-pointer group transition-all duration-150 ease-[cubic-bezier(0.22, 1, 0.36, 1)] flex-1 overflow-hidden"
-      onMouseEnter={() => onMouseEnter(city)}
-      onClick={() => router.push(`/travel/${city.city}`)}
+      onMouseEnter={() => onMouseEnter(category)}
+      onClick={() => router.push(`/portfolio/${category.category}`)}
     >
-      <p className="text-xs lg:text-sm line-clamp-1">{city.city}</p>
+      <p className="text-xs lg:text-sm line-clamp-1">{category.category}</p>
 
       <div className="relative overflow-hidden flex justify-end">
         <div className="flex items-center gap-2 transform transition-transform duration-200 ease-in-out group-hover:-translate-x-7">
           <span className="font-light text-xs lg:text-sm whitespace-nowrap text-right">
-            <TextScroll className="w-28 lg:w-full">{city.country}</TextScroll>
+            <TextScroll className="w-28 lg:w-full">{category.category}</TextScroll>
           </span>
         </div>
         <div className="absolute right-0 transform translate-x-full transition-transform duration-200 ease-in-out group-hover:translate-x-0 flex items-center">
@@ -93,28 +104,29 @@ const CityItem = ({ city, onMouseEnter }: CityItemProps) => {
 
 // Main Component
 export default function TravelClientPage() {
-  const [activeCity, setActiveCity] = useState<CitySetWithRelations | null>(
-    null
+  const [activeCategory, setActiveCategory] = useState<PhotoCollection | null>(
+    photoCategories[0]
   );
-  const { data: citySetsData, isLoading: isCitySetsLoading } = useGetCitySets();
+  
+  //const { data: citySetsData, isLoading: isCitySetsLoading } = useGetCitySets();
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (!activeCity && citySetsData && citySetsData.length > 0) {
       setActiveCity(citySetsData[0]);
     }
-  }, [activeCity, citySetsData]);
+  }, [activeCity, citySetsData]); */
 
-  if (isCitySetsLoading) {
+  /* if (isCitySetsLoading) {
     return (
       <div className="h-full w-full rounded-xl flex items-center justify-center bg-muted">
         <CameraLoader />
       </div>
     );
-  }
+  } */
 
   return (
     <PageTransitionContainer className="flex flex-col lg:flex-row min-h-screen w-full">
-      <CoverPhoto city={activeCity} />
+      <CoverPhoto category={activeCategory} />
 
       {/* Spacer for fixed left content */}
       <div className="hidden lg:block lg:w-1/2" />
@@ -125,13 +137,13 @@ export default function TravelClientPage() {
           <Introduction />
         </PageTransitionItem>
 
-        <div className="space-y-3">
-          {citySetsData?.map((city) => (
-            <PageTransitionItem key={city.id}>
-              <CityItem city={city} onMouseEnter={setActiveCity} />
+         <div className="space-y-3">
+          {photoCategories?.map((category) => (
+            <PageTransitionItem key={category.id}>
+              <CategoryItem category={category} onMouseEnter={()=>setActiveCategory(category)} />
             </PageTransitionItem>
           ))}
-        </div>
+        </div> 
 
         <PageTransitionItem>
           <Footer />
