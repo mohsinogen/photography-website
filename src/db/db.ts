@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const uri: string = 'mongodb+srv://mohsin411:BSL8M46bmREIF2jB@mohsinogen.smovl.mongodb.net/photography_portfolio?retryWrites=true&w=majority&appName=mohsinogen';
+const uri: string = '';
 
 // Define a type for the cached connection
 interface Cached {
